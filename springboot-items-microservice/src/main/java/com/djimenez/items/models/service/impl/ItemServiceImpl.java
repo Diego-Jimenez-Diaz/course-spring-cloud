@@ -20,7 +20,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> getAll() {
-        List<Product> productList = Arrays.asList(restTemplate.getForObject("http://localhost:8001/products", Product[].class));
+        List<Product> productList = Arrays.asList(restTemplate.getForObject("http://products-service/products", Product[].class));
         return productList.stream().map(p -> new Item(p, 1)).collect(Collectors.toList());
     }
 
@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
     public Item findById(Long id) {
         Map<String, String> pathVariables = new HashMap<>();
         pathVariables.put("id", id.toString());
-        Product product = restTemplate.getForObject("http://localhost:8001/products/{id}", Product.class, pathVariables);
+        Product product = restTemplate.getForObject("http://products-service/products/{id}", Product.class, pathVariables);
         return new Item(product, 1);
     }
 }
