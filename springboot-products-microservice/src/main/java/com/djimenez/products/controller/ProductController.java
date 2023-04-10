@@ -4,6 +4,7 @@ import com.djimenez.products.models.entity.Product;
 import com.djimenez.products.models.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/products")
 public class ProductController {
 	
+	//Toma el puerto real
+	@Autowired
+	private Environment environment;
+		
+	//Toma el puerto del application.prpperties
+		
 	@Value("${server.port}")
 	private Integer port;
 
@@ -27,8 +34,8 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(productService.getAll().stream().map(product -> {
-        	//product.setPort(Integer.valueOf(environment.getProperty("local.server.port")));
-        	product.setPort(port);
+        	product.setPort(Integer.valueOf(environment.getProperty("local.server.port")));
+        	//product.setPort(port);
         	return product;
         }).collect(Collectors.toList()) , HttpStatus.OK);
     }
@@ -36,8 +43,8 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> findProductById(@PathVariable Long id) {
     	Product product = productService.findById(id); 
-    	//product.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
-    	product.setPort(port);
+    	product.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
+    	//product.setPort(port);
     	
     	//Test Timeout
     	/*try {
