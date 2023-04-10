@@ -22,7 +22,7 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    @Qualifier("restTemplateService")
+    @Qualifier("feignService")
     ItemService itemService;
 
     @GetMapping
