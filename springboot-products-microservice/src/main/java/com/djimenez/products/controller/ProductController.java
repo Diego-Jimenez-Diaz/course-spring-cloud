@@ -38,6 +38,21 @@ public class ProductController {
     	Product product = productService.findById(id); 
     	//product.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
     	product.setPort(port);
+    	
+    	//Test Timeout
+    	/*try {
+			Thread.sleep(2000L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
+    	
+    	//Change to false to test Hystrix
+    	boolean hystrixValidator = true;
+    	
+    	if(!hystrixValidator) {
+    		throw new RuntimeException();
+    	}
+    	
         return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
     
