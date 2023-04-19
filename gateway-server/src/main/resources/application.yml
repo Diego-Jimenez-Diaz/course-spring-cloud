@@ -1,3 +1,6 @@
+server:
+  port: 8090
+
 resilience4j:
   circuitbreaker:
     configs:
@@ -20,6 +23,8 @@ resilience4j:
         base-config: default
 
 spring:
+  application:
+    name: gateway-server
   cloud:
     gateway:
       routes:
@@ -50,3 +55,9 @@ spring:
           - AddResponseHeader=token-response, 123345xxx
           - SetResponseHeader=Content-Type, text/plain
           - AddRequestParameter=name, diego
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
