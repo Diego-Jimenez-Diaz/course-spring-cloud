@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
-@EnableCircuitBreaker
+//@EnableCircuitBreaker
 public class ItemsApplication {
 
 	public static void main(String[] args) {
