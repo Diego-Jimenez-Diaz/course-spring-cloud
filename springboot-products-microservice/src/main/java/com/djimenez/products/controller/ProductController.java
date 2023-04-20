@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,7 +26,7 @@ public class ProductController {
 	@Autowired
 	private Environment environment;
 		
-	//Toma el puerto del application.prpperties
+	//Toma el puerto del application.properties
 		
 	@Value("${server.port}")
 	private Integer port;
@@ -68,6 +72,22 @@ public class ProductController {
     	}
     	
         return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
+    }
+    
+    @PostMapping
+    public ResponseEntity<Product> create(@RequestBody Product product){
+    	return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> update(@PathVariable("id") Long id, @RequestBody Product product){
+    	return new ResponseEntity<>(productService.update(id, product), HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+    	productService.deleteById(id);
+    	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
 }
