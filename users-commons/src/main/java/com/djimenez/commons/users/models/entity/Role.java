@@ -1,4 +1,4 @@
-package com.djimenez.users.commons.models.entity;
+package com.djimenez.commons.users.models.entity;
 
 import java.io.Serializable;
 

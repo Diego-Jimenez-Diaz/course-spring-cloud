@@ -1,4 +1,4 @@
-package com.djimenez.users.commons;
+package com.djimenez.commons.users;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
