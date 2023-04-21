@@ -1,4 +1,4 @@
-package com.djimenez.oauth.service;
+package com.djimenez.oauth.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,9 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.djimenez.commons.users.models.entity.User;
 import com.djimenez.oauth.clients.UserFeignClient;
+import com.djimenez.oauth.service.userService;
 
 @Service
-public class UserServiceImp implements UserDetailsService{
+public class UserServiceImp implements UserDetailsService, userService{
 
 	
 	private static final Logger log = LoggerFactory.getLogger(UserServiceImp.class);
