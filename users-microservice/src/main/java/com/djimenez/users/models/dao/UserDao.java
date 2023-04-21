@@ -11,6 +11,6 @@ import com.djimenez.commons.users.models.entity.User;
 @RepositoryRestResource(path = "users")
 public interface UserDao extends JpaRepository<User, Long>{
 	
-	@RestResource(path = "searchByUsername")
+	@RestResource(path = "findByUsername")
 	public User findByUsername(@Param("username") String username);
 }
