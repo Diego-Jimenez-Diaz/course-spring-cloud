@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.djimenez.commons.users.models.entity.User;
 import com.djimenez.oauth.clients.UserFeignClient;
-import com.djimenez.oauth.service.userService;
+import com.djimenez.oauth.service.UserService;
 
 @Service
-public class UserServiceImp implements UserDetailsService, userService{
+public class UserServiceImp implements UserDetailsService, UserService{
 
 	
 	private static final Logger log = LoggerFactory.getLogger(UserServiceImp.class);
