@@ -1,5 +1,7 @@
 package com.djimenez.oauth.service;
 
-public interface userService {
+import com.djimenez.commons.users.models.entity.User;
 
+public interface userService {
+	User findByUsername(String username);
 }

@@ -42,4 +42,9 @@ public class UserServiceImp implements UserDetailsService, userService{
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authohrities);
 	}
 
+	@Override
+	public User findByUsername(String username) {
+		return client.findByUsername(username);
+	}
+
 }
