@@ -47,4 +47,9 @@ public class UserServiceImp implements UserDetailsService, UserService{
 		return client.findByUsername(username);
 	}
 
+	@Override
+	public User update(User user, Long id) {
+		return client.update(user, id);
+	}
+
 }
