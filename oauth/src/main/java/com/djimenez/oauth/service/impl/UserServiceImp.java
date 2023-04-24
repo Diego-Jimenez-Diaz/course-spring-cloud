@@ -17,6 +17,8 @@ import com.djimenez.commons.users.models.entity.User;
 import com.djimenez.oauth.clients.UserFeignClient;
 import com.djimenez.oauth.service.UserService;
 
+import feign.FeignException;
+
 @Service
 public class UserServiceImp implements UserDetailsService, UserService{
 
@@ -29,17 +31,24 @@ public class UserServiceImp implements UserDetailsService, UserService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = client.findByUsername(username);
-		if(user==null) {
+		
+		try {
+			
+			User user = client.findByUsername(username);
+			
+			List<GrantedAuthority> authohrities = user.getRoles().stream()
+					.map(role -> new SimpleGrantedAuthority(role.getName()))
+					.peek(authority -> log.info("Role: " + authority.getAuthority()))
+					.collect(Collectors.toList());
+			
+			log.info("User authenticated: " + username);
+			
+			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authohrities);
+		} catch (FeignException e) {
+			
 			log.info("Error in the login, user '" + username + "' not found in the system");
 			throw new UsernameNotFoundException("Error in the login, user '" + username + "' not found in the system");
 		}
-		List<GrantedAuthority> authohrities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName()))
-				.peek(authority -> log.info("Role: " + authority.getAuthority()))
-				.collect(Collectors.toList());
-		log.info("User authenticated: " + username);
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authohrities);
 	}
 
 	@Override
