@@ -1,4 +1,4 @@
-package com.djimenez.users.commons;
+package com.djimenez.commons.users;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
